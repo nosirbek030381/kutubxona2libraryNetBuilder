@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../../image/logo.png'
 
 function Header() {
 	return (
@@ -7,9 +8,9 @@ function Header() {
 			<nav className='navbar navbar-expand-lg navbar-dark bg-primary p-3'>
 				<div className='container'>
 					<div className='d-flex align-items-center'>
-						<img src='https://pngimg.com/uploads/book/book_PNG51001.png' width={50} />
+						<img src={Logo} className=' rounded-circle' width={50} />
 						<a className='navbar-brand px-3' href='#'>
-							Library center
+							UBTUIT
 						</a>
 					</div>
 					<button

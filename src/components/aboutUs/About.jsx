@@ -19,7 +19,7 @@ const About = () => {
             </div>
             <div className="col-md-6">
               <div className="about-text">
-                <h2>About Library Center</h2>
+                <h2>About Library UBTUIT</h2>
                 <p>
                   I am a Full Stack Web Developer with a passion for learning
                   new technologies. I have experience working with Javascript,
