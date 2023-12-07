@@ -1,7 +1,7 @@
 .full {
 	height: 90vh;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
-		url('https://b2bm.s3.amazonaws.com/styles/default_image/s3/the-importance-of-combining-marketing-automation-and-storytelling_1.jpg?itok=J3S2RUo8');
+		url('../../image/ubtuit.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 }

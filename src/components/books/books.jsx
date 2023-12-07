@@ -1,63 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import imgR from '../../image/about-img.jpg';
-import './books.css';
-import Header from '../header/Header';
 import { Link } from 'react-router-dom';
+import Header from '../header/Header';
+import './books.css';
 
-const API_URL = 'https://api.kutubxona2.librarynetbuilder.uz/books';
+const API = 'http://127.0.0.1:8002';
 
-const Books_List = () => {
-  const [books, setBooks] = useState([]);
+const BooksList = () => {
+	const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setBooks(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+	useEffect(() => {
+		fetch('http://127.0.0.1:8002/books')
+			.then(response => response.json())
+			.then(data => {
+				setBooks(data);
+			})
+			.catch(error => console.error('Error fetching data:', error));
+	}, []);
 
-  return (
-    <>
-      <div>
-        <Header />
-      </div>
-      <div className='mt-2 px-3'>
-        <Link to={'/'} className='text-decoration-none'>
-          <i className="fa fa-arrow-left" aria-hidden="true"></i> Go back
-        </Link>
-      </div>
-      <div className='book-list card container mt-3 mb-4'>
-        <h2>Books</h2>
-        <ul>
-          {books.map((book, index) => ( // Changed 'books' to 'book' as parameter name
-            <li key={index} className='book-item d-flex mt-5 mx-3 '>
-              <img src={imgR} alt={book.title} className='mx-5' width={120} height={100} />
-              <div className='book-details font-monospace fw-normal'>
-                <h3>{book.title}</h3>
-                <p>{book.author.name}</p>
-                <p>{book.description}</p>
-                <a href={book.audio}>
-                  <audio src={book.audio} controls></audio>
-                </a>
-                <a
-                  href={book.pdf}
-                  target='_blank'
-                  className='text-decoration-none btn btn-white btn-outline-danger'
-                  rel='noopener noreferrer'
-                >
-                  View PDF
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<div className='mx-3'>
+				<a href='/' className=' text-decoration-none fs-5'>
+					<i className=' fa fa-arrow-circle-left'></i> Go Back
+				</a>
+			</div>
+			<h1 className='mx-5 font-monospace text-uppercase fs-2'>Books</h1>
+			<div className='container mb-4'>
+				<div className='row'>
+					{books.map(book => (
+						<div className=' col-12 col-lg-4 mt-2 justify-content-center' key={book.id}>
+							<div className='card mt-3'>
+								<div className='card-body'>
+									<img src={API + book.image} alt={book.title} width={200} height={200} />
+									<h5 className='card-title mt-2'>
+										{' '}
+										<Link
+											className=' text-decoration-none'
+											to={{ pathname: `/book/${book.id}`, state: { book } }}
+										>
+											{book.title}
+										</Link>
+									</h5>
+									<p className='card-text text-secondary'>Muallif: {book.author.name}</p>
+									<Link
+										className=' text-decoration-none btn btn-primary'
+										to={{ pathname: `/book/${book.id}`, state: { book } }}
+									>
+										Book Detail
+									</Link>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</>
+	);
 };
 
-export default Books_List;
+export default BooksList;

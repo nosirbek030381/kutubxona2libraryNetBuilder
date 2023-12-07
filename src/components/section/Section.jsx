@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import BookDetail from '../bookDetail/bookDetail';
+import ImgL from "../../image/default_cover.png"
 import './section.css';
 
-const URL = 'https://api.kutubxona2.librarynetbuilder.uz/search?';
+const URL = 'http://127.0.0.1:8002/search?';
 
 const Section = () => {
 	const [loading, setLoading] = useState(false);
@@ -21,7 +20,7 @@ const Section = () => {
 		const query = URL + new URLSearchParams({ name: text }).toString();
 		const data = await fetch(query).then(res => res.json());
 
-		if (typeof data === 'string') {
+		if (typeof data == 'string') {
 			setLoading(false);
 			return setRes(data);
 		}
@@ -37,7 +36,7 @@ const Section = () => {
 
 	useEffect(() => {
 		scrollHeight();
-		console.log(res)
+		console.log(res);
 	}, [res]);
 
 	return (
@@ -81,26 +80,23 @@ const Section = () => {
 					<div className='container'>
 						<div className='row'>
 							{res.book.map((book, ind) => (
-								
-								<div className='card-info  w-50 d-flex justify-content-center ' key={ind}>
-									<div className='card mt-5'>
-										<div className='card-body'>
-										{/* <h6 className='card-subtitle mb-2 text-muted'>{book.author?.name}</h6>
-											<h5 className='card-title'>{book.title}</h5> */}
-											<BookDetail 
-											bookId ={book.id}
-											title={book.title}
-											author={book.author?.name || "Unknown!!"}
-											coverImage={book.image}
-											description={book.description || "No description"}
-											audio={book.audio && "no audio"}
-											pdfLink={book.pdf}
-											/>
-											{/* <Link to={`/bookDetail/${book.id}`}>
-												BookDetail
-											</Link> */}
+								<div className='card mb-3 mt-4' key={ind}>
+									<div className='row g-0'>
+										<div className='col-md-4'>
+											<img src={ImgL} className='img-fluid rounded-start w-50  mx-4 p-3' width={500} height={500} alt={book.title} />
+										</div>
+										<div className='col-md-8'>
+											<div className='card-body'>
+												<h5 className='card-title'>{book.title}</h5>
+												<h6 className='card-subtitle mb-2 text-muted'>{book.author?.name}</h6>
+												<p className='card-text'>{book.description}</p>
+												<p className='card-text text-muted'>{book.name} kutubxonasi</p>
+												<p className='card-text text-muted'>Manzil: {book.location}</p>
 
-											<div></div>
+												<a href={book.url} className='text-decoration-none btn btn-primary' target='_blank'>
+													Kutubxonaga o'tish
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -111,7 +107,7 @@ const Section = () => {
 			) : res ? (
 				<div className='d-flex align-items-center justify-content-center fullHeight'>
 					<h1 id='booksList' className='mt-5 text-white'>
-					 	UBTUIT kutubxonasidan	Kitob topilmadi 🙅‍♂️
+						UBTUIT kutubxonasidan Kitob topilmadi 🙅‍♂️
 					</h1>
 				</div>
 			) : null}

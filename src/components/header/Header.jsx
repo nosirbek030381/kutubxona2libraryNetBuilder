@@ -33,7 +33,7 @@ function Header() {
 								</Link>
 							</li>
 							<li className='nav-item'>
-								<Link to='/BooksList' className='nav-link mx-2 active' aria-current='page'>
+								<Link to='/books' className='nav-link mx-2 active' aria-current='page'>
 									Books
 								</Link>
 							</li>
